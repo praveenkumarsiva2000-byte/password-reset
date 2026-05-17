@@ -20,14 +20,9 @@ const PORT = process.env.PORT || 5000;
 // Parse incoming JSON requests
 app.use(express.json());
 
-// Enable CORS for frontend origin
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
-    methods: ["GET", "POST", "PUT"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// Enable CORS for all origins
+app.use(cors());
+app.options("*", cors());
 
 
 // Trust Render's proxy (required for rate limiting on Render)
