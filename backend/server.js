@@ -29,7 +29,11 @@ app.use(
   })
 );
 
-// Global rate limiter – max 100 requests per 15 minutes per IP
+
+// Trust Render's proxy (required for rate limiting on Render)
+app.set("trust proxy", 1);
+
+// Global rate limiter
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
