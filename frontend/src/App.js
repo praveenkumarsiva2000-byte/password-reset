@@ -2,23 +2,25 @@
  * App.js
  * Root application component.
  * Sets up client-side routing with React Router v6.
+ * 
+ * Routes:
+ *  /              → Redirect to /login
+ *  /login         → Login page
+ *  /register      → Register page
+ *  /forgot-password       → Forgot password page
+ *  /reset-password/:token → Reset password page
+ *  *              → 404 Not Found
  */
 
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 
-/**
- * App
- * Defines all application routes:
- *  /                          → Redirect to /forgot-password
- *  /forgot-password           → Enter email to request reset link
- *  /reset-password/:token     → Enter new password using token from email
- *  *                          → 404 Not Found page
- */
 function App() {
   return (
     <Router>
@@ -26,13 +28,19 @@ function App() {
       <div className="page-bg" aria-hidden="true" />
 
       <Routes>
-        {/* Default redirect */}
-        <Route path="/" element={<Navigate to="/forgot-password" replace />} />
+        {/* Default redirect to login */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* Step 1: User enters their email */}
+        {/* Step 0: Register new account */}
+        <Route path="/register" element={<Register />} />
+
+        {/* Step 1: Login to existing account */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Step 2: User enters email for reset */}
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        {/* Step 2: User clicks link in email and resets password */}
+        {/* Step 3: User resets password via token */}
         <Route path="/reset-password/:token" element={<ResetPassword />} />
 
         {/* Fallback 404 */}
