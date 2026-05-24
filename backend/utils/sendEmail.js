@@ -6,7 +6,7 @@ const sendPasswordResetEmail = async (toEmail, toName, resetURL) => {
   );
 
   const data = JSON.stringify({
-    sender: { name: "Password Reset", email: process.env.EMAIL_USER },
+    sender: { name: "Password Reset", email: "praveenkumarsiva2000@gmail.com" },
     to: [{ email: toEmail, name: toName }],
     subject: "🔐 Password Reset Request",
     htmlContent: `<h2>Hi ${toName},</h2>
