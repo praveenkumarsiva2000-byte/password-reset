@@ -19,7 +19,10 @@ function Login() {
       const res = await API.post("/auth/login", form);
       setFeedback({ type: "success", message: `Welcome back, ${res.data.name}! Login successful.` });
     } catch (err) {
-      setFeedback({ type: "error", message: err.message });
+      setFeedback({ 
+  type: "error", 
+  message: err.response?.data?.message || "Invalid email or password. Please try again." 
+});
     } finally {
       setIsLoading(false);
     }
